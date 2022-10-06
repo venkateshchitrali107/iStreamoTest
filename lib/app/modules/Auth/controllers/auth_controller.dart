@@ -1,5 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:i_streamo_test/app/data/share_pref.dart';
 import 'package:local_auth/local_auth.dart';
 
 import '../models/auth_state.dart';
@@ -8,8 +9,10 @@ class AuthController extends GetxController {
   final _localAuth = LocalAuthentication();
   final _authenticationStateStream = AuthenticationState().obs;
   final _biometricSupportedStream = false.obs;
+  RxBool showLogin = false.obs;
   AuthenticationState get authState => _authenticationStateStream.value;
   bool get isBiometricsSupported => _biometricSupportedStream.value;
+
   @override
   void onInit() {
     _checkIfBiometricsSupported();
@@ -33,14 +36,18 @@ class AuthController extends GetxController {
           localizedReason: 'Authenticate with your biometrics',
           options: const AuthenticationOptions(
             useErrorDialogs: true,
-            stickyAuth: true,
-            biometricOnly: true,
+            // stickyAuth: true,
+            // biometricOnly: true,
           ));
       if (isAuthenticated) {
         _authenticationStateStream.value = Authenticated();
       } else {
         _authenticationStateStream.value = UnAuthenticated();
       }
+      LocalStorage().addValueFor(
+        LocalStorageKeys.userLoggedIn,
+        isAuthenticated,
+      );
     } on PlatformException catch (e) {
       // display this error if you want
       print(e.message);
@@ -53,5 +60,9 @@ class AuthController extends GetxController {
 
   void _checkIfBiometricsSupported() async {
     _biometricSupportedStream.value = await _localAuth.isDeviceSupported();
+    await Future.delayed(const Duration(
+      seconds: 3,
+    ));
+    showLogin(true);
   }
 }

@@ -10,6 +10,10 @@ dependencies:
   get: 4.6.5
   local_auth: ^2.1.2
   equatable: ^2.0.0
+  http: ^0.13.5
+  get_storage: ^2.0.3
+  fluttertoast: ^8.0.9
+
   flutter: 
     sdk: flutter
 
@@ -34,6 +38,14 @@ flutter_icons:
 
 flutter: 
   uses-material-design: true
-assets:
-  - asset/github.png
+  fonts:
+    - family: Merriweather
+      fonts:
+        - asset: asset/Merriweather/Merriweather-Regular.ttf
+        - asset: asset/Merriweather/Merriweather-Italic.ttf
+        - asset: asset/Merriweather/Merriweather-Black.ttf
+        - asset: asset/Merriweather/Merriweather-Bold.ttf
+        - asset: asset/Merriweather/Merriweather-Light.ttf
+  assets:
+    - asset/github.png
 
