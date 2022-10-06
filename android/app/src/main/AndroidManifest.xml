@@ -2,8 +2,8 @@
     package="com.istreamotest.i_streamo_test">
     <uses-permission android:name="android.permission.USE_FINGERPRINT"/>
    <application
-        android:label="i_streamo_test"
-        android:icon="@mipmap/ic_launcher">
+        android:label="iStreamo"
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
