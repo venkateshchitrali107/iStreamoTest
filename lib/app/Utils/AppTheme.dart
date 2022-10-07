@@ -16,10 +16,10 @@ class AppTheme {
   static final ThemeData lightTheme = ThemeData(
     appBarTheme: AppBarTheme(
       titleTextStyle: TextStyle(
-        color: _lightPrimaryColor,
+        color: Colors.white,
         fontFamily: "Merriweather",
         fontWeight: FontWeight.bold,
-        fontSize: 14,
+        fontSize: 18,
       ),
       color: _lightPrimaryColor,
       iconTheme: IconThemeData(color: _lightOnPrimaryColor),

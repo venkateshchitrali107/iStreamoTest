@@ -1,37 +1,28 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import '../../../Utils/Styles.dart';
+import 'git_card_view.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
-    controller.checkForUserAuth();
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Spacer(),
-            Padding(
-              padding: const EdgeInsets.all(32.0),
-              child: Image(
-                image: AssetImage("asset/github.png"),
-                width: Get.width * 0.6,
-              ),
-            ),
-            Text(
-              'iStreamo',
-              style: getMobileRegularTextStyle(
-                fontSize: 30,
-              ).copyWith(
-                color: Get.theme.primaryColor,
-              ),
-            ),
-            Spacer(),
-          ],
+      appBar: AppBar(
+        title: Text(
+          "Jake's Git",
         ),
+        centerTitle: true,
+      ),
+      body: Obx(
+        () {
+          return ListView.builder(
+            itemCount: controller.repos.length,
+            itemBuilder: ((context, index) {
+              return GitCardView(controller.repos.value[index]);
+            }),
+          );
+        },
       ),
     );
   }

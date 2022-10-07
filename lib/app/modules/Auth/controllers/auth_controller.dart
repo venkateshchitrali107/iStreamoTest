@@ -1,6 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:i_streamo_test/app/data/share_pref.dart';
+import 'package:i_streamo_test/app/routes/app_pages.dart';
 import 'package:local_auth/local_auth.dart';
 
 import '../models/auth_state.dart';
@@ -33,23 +36,28 @@ class AuthController extends GetxController {
   Future<void> signInWithBiometrics() async {
     try {
       var isAuthenticated = await _localAuth.authenticate(
-          localizedReason: 'Authenticate with your biometrics',
-          options: const AuthenticationOptions(
-            useErrorDialogs: true,
-            // stickyAuth: true,
-            // biometricOnly: true,
-          ));
+        localizedReason: 'Authenticate with your biometrics',
+        options: const AuthenticationOptions(
+          useErrorDialogs: true,
+        ),
+      );
       if (isAuthenticated) {
-        _authenticationStateStream.value = Authenticated();
+        Get.offAllNamed(Routes.HOME);
       } else {
-        _authenticationStateStream.value = UnAuthenticated();
+        Fluttertoast.showToast(
+          msg: "Failed to Aunthenticate",
+          backgroundColor: Colors.red,
+        );
       }
       LocalStorage().addValueFor(
         LocalStorageKeys.userLoggedIn,
         isAuthenticated,
       );
     } on PlatformException catch (e) {
-      // display this error if you want
+      Fluttertoast.showToast(
+        msg: "Failed to Aunthenticate",
+        backgroundColor: Colors.red,
+      );
       print(e.message);
     }
   }
@@ -60,9 +68,11 @@ class AuthController extends GetxController {
 
   void _checkIfBiometricsSupported() async {
     _biometricSupportedStream.value = await _localAuth.isDeviceSupported();
-    await Future.delayed(const Duration(
-      seconds: 3,
-    ));
+    await Future.delayed(
+      const Duration(
+        seconds: 2,
+      ),
+    );
     showLogin(true);
   }
 }

@@ -1,11 +1,15 @@
+import 'dart:convert';
+
 import 'package:get/get.dart';
-import '../../../data/share_pref.dart';
-import '../../../routes/app_pages.dart';
+import 'package:i_streamo_test/app/data/api_constants.dart';
+import 'package:i_streamo_test/app/modules/home/model/git_response.dart';
 
 class HomeController extends GetxController {
+  RxList repos = [].obs;
   @override
   void onInit() {
     super.onInit();
+    getRepos();
   }
 
   @override
@@ -16,23 +20,17 @@ class HomeController extends GetxController {
   @override
   void onClose() {}
 
-  checkForUserAuth() async {
+  getRepos() async {
     try {
-      bool isUserLoggedIn = LocalStorage().getValueFor(
-            LocalStorageKeys.userLoggedIn,
-          ) ??
-          false;
-      await Future.delayed(
-        const Duration(
-          seconds: 2,
-        ),
-      );
-      if (!isUserLoggedIn) {
-        Get.toNamed(Routes.AUTH);
+      final res = await BaseApiServices.get(APIConstants.baseUrl);
+      List decoded = json.decode(res?.body ?? '');
+      List<GitResponse> currentRes = [];
+      for (var rep in decoded) {
+        currentRes.add(GitResponse.fromJson(rep));
       }
+      repos.addAll(currentRes);
     } catch (e) {
       printError(info: e.toString());
-      Get.toNamed(Routes.AUTH);
     }
   }
 }

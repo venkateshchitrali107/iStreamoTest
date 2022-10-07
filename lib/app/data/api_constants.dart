@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 
 class APIConstants {
   static String baseUrl =
-      "https://trackmytransactions-production.up.railway.app/api/";
+      "https://api.github.com/users/JakeWharton/repos?page=1&per_page=15";
 }
 
 class BaseApiServices {

@@ -13,7 +13,7 @@ dependencies:
   http: ^0.13.5
   get_storage: ^2.0.3
   fluttertoast: ^8.0.9
-
+  scrollable_positioned_list: ^0.3.5
   flutter: 
     sdk: flutter
 
@@ -48,4 +48,5 @@ flutter:
         - asset: asset/Merriweather/Merriweather-Light.ttf
   assets:
     - asset/github.png
+    - asset/
 
