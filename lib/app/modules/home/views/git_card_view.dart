@@ -36,11 +36,14 @@ class GitCardView extends StatelessWidget {
                       child: Text(
                         gitResp.name ?? "Unnamed Repo",
                         style: getMobileRegularTextStyle(
-                          fontSize: 16,
+                          fontSize: 14,
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.clip,
                       ),
+                    ),
+                    SizedBox(
+                      height: 8,
                     ),
                     Container(
                       child: Text(
@@ -52,6 +55,63 @@ class GitCardView extends StatelessWidget {
                         overflow: TextOverflow.clip,
                       ),
                     ),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Container(
+                      height: 24,
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          if ((gitResp.language ?? '').isNotEmpty)
+                            Row(
+                              children: [
+                                Image(
+                                  fit: BoxFit.fill,
+                                  image: AssetImage(
+                                    "asset/code.png",
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 2,
+                                ),
+                                Text(
+                                  gitResp.language!,
+                                )
+                              ],
+                            ),
+                          Row(
+                            children: [
+                              Image(
+                                fit: BoxFit.fill,
+                                image: AssetImage(
+                                  "asset/bug.png",
+                                ),
+                              ),
+                              SizedBox(
+                                width: 2,
+                              ),
+                              Text("${gitResp.openIssues ?? 0}")
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Image(
+                                fit: BoxFit.fill,
+                                image: AssetImage(
+                                  "asset/face.png",
+                                ),
+                              ),
+                              SizedBox(
+                                width: 2,
+                              ),
+                              Text("${gitResp.watchers ?? 0}")
+                            ],
+                          ),
+                        ],
+                      ),
+                    )
                   ],
                 ),
               ),

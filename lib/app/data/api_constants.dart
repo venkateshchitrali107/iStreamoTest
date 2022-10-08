@@ -5,8 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 
 class APIConstants {
-  static String baseUrl =
-      "https://api.github.com/users/JakeWharton/repos?page=1&per_page=15";
+  static String baseUrl = "https://api.github.com/users/JakeWharton/";
 }
 
 class BaseApiServices {
@@ -15,12 +14,14 @@ class BaseApiServices {
     Map<String, String>? headers,
     int timeout = 20,
   }) async {
+    print(path);
     try {
       final response = await http
           .get(
             Uri.parse(APIConstants.baseUrl + path),
           )
           .timeout(Duration(seconds: timeout));
+      print(response.body);
       return response;
     } on TimeoutException {
       Fluttertoast.showToast(
