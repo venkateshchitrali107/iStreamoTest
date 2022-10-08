@@ -59,10 +59,10 @@ class GitCardView extends StatelessWidget {
                       height: 8,
                     ),
                     Container(
-                      height: 24,
+                      height: 20,
                       padding: const EdgeInsets.symmetric(horizontal: 8),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           if ((gitResp.language ?? '').isNotEmpty)
                             Row(
@@ -74,40 +74,37 @@ class GitCardView extends StatelessWidget {
                                   ),
                                 ),
                                 SizedBox(
-                                  width: 2,
+                                  width: 4,
                                 ),
                                 Text(
                                   gitResp.language!,
-                                )
+                                ),
                               ],
                             ),
-                          Row(
-                            children: [
-                              Image(
-                                fit: BoxFit.fill,
-                                image: AssetImage(
-                                  "asset/bug.png",
-                                ),
-                              ),
-                              SizedBox(
-                                width: 2,
-                              ),
-                              Text("${gitResp.openIssues ?? 0}")
-                            ],
+                          if ((gitResp.language ?? '').isNotEmpty) Spacer(),
+                          Image(
+                            fit: BoxFit.fill,
+                            image: AssetImage(
+                              "asset/bug.png",
+                            ),
                           ),
-                          Row(
-                            children: [
-                              Image(
-                                fit: BoxFit.fill,
-                                image: AssetImage(
-                                  "asset/face.png",
-                                ),
-                              ),
-                              SizedBox(
-                                width: 2,
-                              ),
-                              Text("${gitResp.watchers ?? 0}")
-                            ],
+                          SizedBox(
+                            width: 2,
+                          ),
+                          Text("${gitResp.openIssues ?? 0}"),
+                          Spacer(),
+                          Image(
+                            fit: BoxFit.fill,
+                            image: AssetImage(
+                              "asset/face.png",
+                            ),
+                          ),
+                          SizedBox(
+                            width: 2,
+                          ),
+                          Text("${gitResp.watchers ?? 0}"),
+                          Spacer(
+                            flex: 2,
                           ),
                         ],
                       ),
