@@ -12,16 +12,16 @@ class BaseApiServices {
   static Future<http.Response?> get(
     String path, {
     Map<String, String>? headers,
-    int timeout = 20,
+    int timeout = 60,
   }) async {
-    print(path);
+    // print(path);
     try {
       final response = await http
           .get(
             Uri.parse(APIConstants.baseUrl + path),
           )
           .timeout(Duration(seconds: timeout));
-      print(response.body);
+      // print(response.body);
       return response;
     } on TimeoutException {
       Fluttertoast.showToast(
