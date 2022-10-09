@@ -39,6 +39,7 @@ class AuthController extends GetxController {
         localizedReason: 'Authenticate with your biometrics',
         options: const AuthenticationOptions(
           useErrorDialogs: true,
+          biometricOnly: true,
         ),
       );
       if (isAuthenticated) {

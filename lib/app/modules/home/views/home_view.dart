@@ -51,7 +51,11 @@ class HomeView extends GetView<HomeController> {
                 );
               } else if (controller.isError &&
                   index == controller.repos.length) {
-                return Text("Failed to get new Respos");
+                return Center(
+                    child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text("Failed to get new Respos"),
+                ));
               } else {
                 return GitCardView(controller.repos[index]);
               }
