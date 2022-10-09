@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
+import '../../../data/localDB/db.dart';
 import '../../../data/api_constants.dart';
 import '../model/git_response.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
@@ -15,6 +16,7 @@ class HomeController extends GetxController {
   int pageSize = 15;
   bool isError = false;
   bool completed = false;
+  MyDatabase db = Get.find();
 
   @override
   void onInit() {
@@ -37,9 +39,6 @@ class HomeController extends GetxController {
               ),
             );
           }
-          printInfo(info: "True");
-        } else {
-          printInfo(info: "False");
         }
       },
     );
@@ -59,14 +58,21 @@ class HomeController extends GetxController {
       );
       if (res != null && res.statusCode == 200) {
         var decoded = json.decode(res.body);
+        if (currentPage == 1) {
+          repos.value = [];
+          db.deleteAllRepos();
+        }
         List<GitResponse> currentRes = [];
         for (var rep in decoded) {
           currentRes.add(GitResponse.fromJson(rep));
+          await db.insertRepo(Repo.fromJson(rep));
         }
         if (currentRes.length < 15) {
           completed = true;
         }
         repos.addAll(currentRes);
+        final offset = ((currentPage - 1) * pageSize);
+        var reposActive = await db.getAllRepos(pageSize, offset);
         currentPage = currentPage + 1;
       } else {
         isError = true;
